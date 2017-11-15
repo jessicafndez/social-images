@@ -23,7 +23,6 @@ class Board extends Component {
         imagePreviewUrl: reader.result
       });
     }
-
     reader.readAsDataURL(file)
   }
 
@@ -38,13 +37,13 @@ class Board extends Component {
     let currentWidth = this.refs.canvas.width;
     if(currentWidth>=500 && this.canvasWidthProportion) {
       this.canvasWidthProportion += 0.1;
-      //this.refs.canvas.width += this.canvasWidthProportion + 0.1;
     }
     else {
       this.refs.canvas.width = 500;
     }
    this.render();
   }
+
   changeCanvasWidthLess(e) {
     e.preventDefault();
     let currentWidth = this.refs.canvas.width;
@@ -68,6 +67,7 @@ class Board extends Component {
     }
    this.render();
   }
+  
   changeCanvasHeightLess(e) {
     e.preventDefault();
     let currentHeight = this.refs.canvas.height;
@@ -101,14 +101,11 @@ class Board extends Component {
       img.onload = function() {
         canvas.width = canvas.height * (img.width / img.height);
         console.log("CW: " + canvasWidthP);
-        /*
-        canvas.width = img.width * this.canvasHeightProportion;
-        canvas.height = img.height * this.canvasHeightProportion;
-        */
+
         canvas.width = img.width * canvasWidthP;
         canvas.height = img.height * canvasHeightP;
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-     //   ctx.drawImage(canvas, 0, 0, canvas.width * this.canvasHeightProportion, canvas.height * this.canvasHeightProportion);
+
         ctx.drawImage(canvas, 0, 0, canvas.width * canvasWidthP, canvas.height * canvasHeightP,
         0, 0, canvas.width, canvas.height);
         ctx.beginPath();
