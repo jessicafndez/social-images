@@ -1,0 +1,15 @@
+/*********** BOARD STYLES ***************/
+.lblSocialPlatform {
+    font-size: 18px;
+    color: #252A34;
+    font-family: 'Pacifico', cursive;
+    margin-right: 20px;
+}
+
+select {
+    height: 35px;
+    border-radius: 0px 0px 3px 3px;
+    box-shadow: 1px 4px 10px -2px rgba(0, 0, 0, 0.2);
+    border: 1px solid #252A34;
+    border-radius: 5px;
+}

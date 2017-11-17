@@ -8,10 +8,87 @@
 }
 
 .textContainer {
-    border: 1px solid #4c4c4c;
     margin: 10px 0 10px;
     padding: 10px;
 }
 .newText {
     width: 100%;
 }
+
+.canvasContainer {
+  height: 100%;
+  position: relative;
+  width: 100%;
+  
+}
+.canvasCanvas {
+/*  height: 100%;*/
+  position: relative;
+ /* width: 100%;*/
+  z-index: 1;
+  margin: 0 auto;
+  display: flex;
+}
+.canvasMirror {
+    /*height: 100%;*/
+    left: 0;
+    position: absolute;
+    top: 0;
+    margin: 0 auto;
+    display: flex;
+    /* width: 100%; */
+}
+
+.imageType {
+    font-size: 18px;
+    color: #4c4c4c;
+    font-family: 'Pacifico', cursive;
+    margin-right: 20px;
+}
+
+.fileContainer {
+    position: relative;
+    overflow: hidden;
+    background-color: #FF2E63;
+    width: 100px;
+    padding: 10px;
+    font-size: 15px;
+    color: #252A34;
+    font-family: 'Pacifico', cursive;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 30px;
+  }
+  .fileContainer span {
+    cursor: pointer !important;
+  }
+  .fileContainer input {
+    height: 50px;
+    cursor: pointer !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    background-color: #FF2E63;
+}
+
+  .appBtn {
+    background: #FF2E63;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 15px;
+    color: #252A34;
+    font-family: 'Pacifico', cursive;
+    border: none;
+  }
+
+  .saveBtnContainer {
+      margin-top: 20px;
+  }
+
+  

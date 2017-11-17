@@ -1,0 +1,14 @@
+.imageText {
+    font-size: 14px;
+    color: #252A34;
+    font-family: 'Pacifico', cursive;
+}
+.textContainerRow {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.textContainerRow input {
+    border: 1px solid #252A34;
+    border-radius: 5px;
+    height: 25px;
+}

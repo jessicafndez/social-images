@@ -1,6 +1,7 @@
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
+  background-color: #EAEAEA;
 }
 
 ol, ul {
@@ -17,20 +18,13 @@ ol, ul {
   margin-bottom: 10px;
 }
 
-.square {
-  background: #fff;
-  border: 1px solid #999;
-  float: left;
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 34px;
-  height: 34px;
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
-  text-align: center;
-  width: 34px;
+/********* INDEX **************/
+.appTittle {
+  font-size: 30px;
+  color: #252A34;
+  font-family: 'Pacifico', cursive;
 }
+
 
 .square:focus {
   outline: none;
@@ -56,7 +50,18 @@ ol, ul {
   font-size: 25px;
 }
 
-canvas {
-  border: 1px solid black;
+.componentBox {
+  padding: 20px 10px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #08D9D6;
 }
- 
+
+canvas {
+  border: 1px solid #08D9D6;
+  background-color: #08D9D6;
+  box-shadow: 7px 7px 3px #D0F6F6;
+}
+
+a {
+  text-decoration: none;
+}

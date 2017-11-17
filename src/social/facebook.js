@@ -29,8 +29,19 @@ class Facebook extends Component {
       moveAmountY: 0,
       isLoaded: false,
       numTextContainers: 0,
-      textBoxes: []
+      textBoxes: [],
+      childText: '',
+      childTextColor: '#000000',
+      childTextSize: 16,
+      childTextStyle: 'Arial',
+      childTextTop: 0,
+      downloadImage: '',
+      haveTextContent: false
     }
+
+    this.textContainer = [];
+    this.sendValues = this.sendValues.bind(this);
+    this.imageDownloadUrl = '';
   }
 
   _handleImageChange(e) {
@@ -53,7 +64,7 @@ class Facebook extends Component {
   }
 
   handleMouseUpFbk(e) {
-      this.setState({ isDragging: false });
+    this.setState({ isDragging: false });
   } 
 
   handleMouseMoveFbk(e) {
@@ -67,11 +78,11 @@ class Facebook extends Component {
         this.setState({moveAmountX: actualMoveX, moveAmountY: actualMoveY});
       }
       this.setState({coordX: e.pageX, coordY:e.pageY});
+      this.render();
     }
     else {
       console.log("move bt not draggin");
     }
-    this.render();
   }
 
   handleMouseOutFbk(e) {
@@ -92,7 +103,7 @@ class Facebook extends Component {
         boardHeight: newHeight
       });
     }
-    else if(option=== 2) {
+    else if(option === 2) {
       let newWidth = this.facebookSizes.facebookSquare[0].widthWeb;
       let newHeight = this.facebookSizes.facebookSquare[0].heightWeb;
 
@@ -112,53 +123,95 @@ class Facebook extends Component {
     }
   } 
 
-  addText(e) {
-    console.log("Adding text");
-    let numText = this.state.numTextContainers + 1;
-    this.setState({numTextContainers: numText});
+  saveCanvas(e) {
+    e.preventDefault();
+    let canvas = this.refs.canvas;
+
+    var dataURL = canvas.toDataURL('image/png');
+    this.href=dataURL;
+  
+    const w = window.open('about:blank', 'image from canvas');
+    w.document.write("<img src='"+dataURL+"' alt='from canvas'/>");
+    this.setState({downloadImage: dataURL});
   }
 
-  changeText(e) {
-    console.log("text has change in child");
-    console.log(e);
+  addText(e) {
+    if(this.state.numTextContainers == 0) {
+      let numText = this.state.numTextContainers + 1;
+      this.setState({numTextContainers: numText});
+      this.textContainer.push(<TextComponent key={this.state.numTextContainers+1} number={this.state.numTextContainers+1} 
+        addCanvasText={this.addCanvasText.bind(this)}
+        addCanvasTextColor={this.addCanvasTextColor.bind(this)}
+        addCanvasTextSize={this.addCanvasTextSize.bind(this)}
+        addCanvasTextStyle={this.addCanvasTextStyle.bind(this)}
+        sendValues={this.sendValues.bind(this)}
+        delText={this.delText.bind(this)}
+        state={this.state}/>
+      );
+      this.setState( {textBoxes: this.textContainer});
+    }
+  }
+
+  delText() {
+    this.setState({ numTextContainers:0 });
+    this.textContainer = [];
+    this.render();
   }
   
   addCanvasText(e) {
-    console.log("Adding text in parents: ");
-    console.log(e.target.value);
+    this.setState({childText: e.target.value});
+  }
+
+  addCanvasTextColor(e) {
+    this.setState({childTextColor: e.target.value});
+  }
+
+  addCanvasTextSize(e) {
+    this.setState({childTextSize: e.target.value});
+  }
+
+  addCanvasTextStyle(e) {
+    console.log("Style: " + e.target.value);
+    this.setState({childTextStyle: e.target.value});
   }
 
   sendValues(e) {
-    console.log("Text values: " );
-    console.log(e);
-  
+    this.setState({childText: e});
+    this.render();
   }
 
   render() {
     let {imagePreviewUrl} = this.state;
     let img = new Image();
 
-   const textContainer = [];
-    for (var i = 0; i < this.state.numTextContainers; i += 1) {
-      textContainer.push(<TextComponent key={i} number={i} 
-        onChange={(e)=>this.changeText(e)}
-        addCanvasText={this.addCanvasText}
-        sendValues={this.sendValues}/>
-      );
-    };
-
     if (imagePreviewUrl) {
-      const ctx = this.refs.canvas.getContext('2d');
-      const canvas = this.refs.canvas;
-
       let xPos = this.state.moveAmountX;
       let yPos = this.state.moveAmountY;
+
+      const ctx = this.refs.canvas.getContext('2d');
+      const canvas = this.refs.canvas;
+  
+      let childText = this.state.childText;
+      let childTextColor = this.state.childTextColor;
+      let childTextSize = this.state.childTextSize;
+      let childTextStyle = this.state.childTextStyle;
+
+      console.log("----C----");
+      console.log(childTextSize);
+
       if(!this.state.isLoaded) {
         img.onload = function() {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           ctx.drawImage(img, (canvas.width/2 - img.width/2) + xPos, (canvas.height/2 - img.height/2) + yPos);
+
+          ctx.font = childTextSize +"px " + childTextStyle;
+          ctx.fillStyle = childTextColor;
+          ctx.fillText(childText, 10,50);
+          ctx.fill();
+
           ctx.beginPath();
           ctx.stroke();
+
         };
       }
       else {
@@ -166,52 +219,67 @@ class Facebook extends Component {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           ctx.drawImage(img, -canvas.width/2 + xPos, -canvas.height/2 + yPos);
 
+          ctx.font = childTextSize +"px Georgia";
+          ctx.fillStyle = childTextColor;
+          ctx.fillText(childText, 10,50);
+          ctx.fill();
+
           ctx.beginPath();
           ctx.stroke();
         };
       }
       img.src = imagePreviewUrl;
-
-      if(this.state.numTextContainers>0) {
-        console.log("We have some text");
-        console.log(textContainer);
-      }
-      else {
-        console.log("No text here");
-      }
     }
 
-    //this.setState({textBoxes: textContainer});  
-    console.log(this.state.textBoxes);
+    let btnVisible = this.state.numTextContainers;
 
     return(
       <div className="facebookContainer">
-        <label>Selecciona el tipo de imagen a crear para Facebook:</label>
-        <select name="facebookOptions" onClick={(e)=>this.changeFacebookOptions(e)}>
-          <option value="1">Perfil</option>
-          <option value="2">Cuadrada</option>
-          <option value="3">Portada</option>
-        </select>
-        <form onSubmit={(e)=>this._handleSubmit(e)}>
-            <input className="fileInput" 
-                type="file" 
-                onChange={(e)=>this._handleImageChange(e)} />
-        </form>
-        <div className="canvasContent">
-          <canvas ref="canvas"  width={this.state.boardWidth} 
-            height={this.state.boardHeight}
-              resize="true" 
-              onMouseUp = {(e)=>this.handleMouseUpFbk(e)}
-              onMouseDown = {(e)=>this.handleMouseDownFbk(e)}
-              onMouseMove = {(e)=>this.handleMouseMoveFbk(e)}
-          />
+        <div className="componentBox">
+          <label className="imageType">Tipo imágen Facebook:</label>
+          <select name="facebookOptions" onClick={(e)=>this.changeFacebookOptions(e)}>
+            <option value="1">Perfil</option>
+            <option value="2">Cuadrada</option>
+            <option value="3">Portada</option>
+          </select>
+        </div>
+        <div className="componentBox">
+          <div className="fileContainer">
+            <span>Añadir imágen</span>
+            <input className="fileInput" type="file" 
+              onChange={(e)=>this._handleImageChange(e)}></input>
+          </div>
+        </div>
+        <div className="canvasContent componentBox">
+          <div className="saveBtnContainer">
+            <a href={this.state.downloadImage} onClick={(e)=>this.saveCanvas(e)} 
+            className="appBtn saveBtn"
+            download>Guardar imágen</a>
+          </div>
+          <div className="canvasContainer">
+            <canvas ref="canvas" className="canvasCanvas" id="canvasCanvas"
+              width={this.state.boardWidth} 
+              height={this.state.boardHeight}
+                resize="true" 
+                onMouseUp = {(e)=>this.handleMouseUpFbk(e)}
+                onMouseDown = {(e)=>this.handleMouseDownFbk(e)}
+                onMouseMove = {(e)=>this.handleMouseMoveFbk(e)}
+            />
+
+            {/*
+            <img src={this.state.downloadImage} id="canvasMirror"  className="canvasMirror"
+            />
+            */}
+          </div>
+
         </div> 
-        <div className="" onClick={(e)=>this.addText(e)}>
-          <button>Add text container</button>
+        <div className="componentBox" onClick={(e)=>this.addText(e)}
+        style={{ display: (btnVisible ? 'none' : 'block')}}>
+          <button className="appBtn">Añadir texto</button>
         </div>
 
         <div id="children-text-pane">
-          {textContainer}
+          {this.textContainer}
         </div>
       </div>
     );
