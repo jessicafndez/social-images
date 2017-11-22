@@ -8,28 +8,6 @@ import Twitter from '../social/twitter';
 
 import SocialGeneral from '../social/socialGeneral.js'
 
-// function SocialComponent(props) {
-//     console.log("props");
-//     console.log(props.thisSocialId);
-//     console.log("-*-");
-
-//     if(props.thisSocialId == 1) {
-//         return(
-//             <Facebook />
-//         );
-//     }
-//     else if(props.thisSocialId == 2){
-//         return(
-//             <Instagram /> 
-//         );
-//     }
-//     else if(props.thisSocialId == 3){
-//         return(
-//             <Twitter />
-//         );
-//     }
-// }
-
 class Board extends Component {
     constructor(props) {
         super(props);
@@ -39,6 +17,7 @@ class Board extends Component {
             dragging: false, 
             socialName: 'Facebook',
             socialId: 1,
+            socialPosition: 0,
             canvasWidth: 470,
             canvasHeight: 470
         };   
@@ -48,13 +27,25 @@ class Board extends Component {
         e.preventDefault();
 
         if (e.target.value == 1) {
-            this.setState({socialName: 'Facebook', socialId: 1});
+            this.setState({ 
+                socialName: 'Facebook', 
+                socialId: 1,
+                socialPosition: 0
+            });
         }
         else if (e.target.value == 2) {
-            this.setState({socialName: 'Instagram', socialId: 2});
+            this.setState({
+                socialName: 'Instagram', 
+                socialId: 2,
+                socialPosition: 0
+            });
         }
         else if (e.target.value == 3) {
-            this.setState({socialName: 'Twitter', socialId: 3});
+            this.setState({
+                socialName: 'Twitter', 
+                socialId: 3,
+                socialPosition: 0
+            });
         }
 
         console.log("Changin to: " + e.target.value);
@@ -73,7 +64,7 @@ class Board extends Component {
                     </select>
                 </div>
                 <div className="">
-                    <SocialGeneral thisSocialId={this.state.socialId}/>
+                    <SocialGeneral socialId={this.state.socialId} ref='socialGeneral' />
                 </div>
             </div>
         );

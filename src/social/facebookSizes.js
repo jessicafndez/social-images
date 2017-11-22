@@ -1,14 +1,14 @@
 class Facebook {
     constructor() {
         this.socialSizes = {
-            Profile:  [
-              {widthDefault: 180, widthWeb: 160, heightDefault: 180, heightWeb: 160}
+            0:  [
+              {key: "Profile", widthDefault: 180, widthWeb: 180, heightDefault: 180, heightWeb: 180}
             ],
-            Square: [
-              {widthDefault: 1200, widthWeb: 470, heightDefault: 1200, heightWeb: 470}
+            1: [
+              {key: "Square", widthDefault: 1200, widthWeb: 470, heightDefault: 1200, heightWeb: 470}
             ],
-            Cover: [
-              {widthDefault: 815, widthWeb: 815, heightDefault: 315, heightWeb: 315},
+            2: [
+              {key: "Cover", widthDefault: 815, widthWeb: 815, heightDefault: 315, heightWeb: 315},
             ]
         }
     }

@@ -1,17 +1,17 @@
 class Instagram {
     constructor() {
         this.socialSizes = {
-            sProfile:  [
-                {widthDefault: 180, widthWeb: 110, heightDefault: 180, heightWeb: 110}
+            0:  [
+                {key: "Profile", widthDefault: 180, widthWeb: 180, heightDefault: 180, heightWeb: 180}
             ],
-            Square: [
-                {widthDefault: 1080, widthWeb: 640, heightDefault: 1080, heightWeb: 640}
+            1: [
+                {key: "Square", widthDefault: 1080, widthWeb: 640, heightDefault: 1080, heightWeb: 640}
             ],
-            Horizontal: [
-                {widthDefault: 1080, widthWeb: 640, heightDefault: 566, heightWeb: 400},
+            2: [
+                {key: "Horizontal", widthDefault: 1080, widthWeb: 640, heightDefault: 566, heightWeb: 400},
             ],
-            Vertical: [
-                {widthDefault: 1080, widthWeb: 600, heightDefault: 1350, heightWeb: 749},
+            3: [
+                {key: "Vertical", widthDefault: 1080, widthWeb: 600, heightDefault: 1350, heightWeb: 749},
             ]
         }
     }

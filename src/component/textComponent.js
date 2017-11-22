@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FaPlus from 'react-icons/lib/fa/plus';
 import FaMinus from 'react-icons/lib/fa/minus';
+import FaTrash from 'react-icons/lib/fa/trash';
 
 import '../css/text_component.css'
 
@@ -17,11 +18,18 @@ class TextComponent extends Component {
             textPosX: 0,
             textPosY: 0
         }
-        
-        this.fonts = ['Andale Mono', 'Arial', 'Arial Black', 'Comic Sans MS', 'Georgia', 'Impact',
-         'Times New Roman', 'Tahoma', 'Verdana', 'Webdings'
+
+        this.fonts = ['Andale Mono', 'Arial', 'Arial Black', 'Arial Italic',
+            'Comic Sans MS', 'Georgia', 'Georgia Italic', 'Impact',
+            'Times New Roman', 'Tahoma', 'Verdana'
         ]
-    
+
+        this.colors = [
+            {name: 'Negro', rgb: '#000000'},
+            {name: 'Invermercado', rgb: '#218aa8'},
+            {name: 'Blanco', rgb: '#ffffff'},
+            {name: 'Gris', rgb: '#4c4c4c'}
+        ]
     }
 
     handleAddText(e) {
@@ -33,13 +41,18 @@ class TextComponent extends Component {
         this.setState({textColor: e.target.value});
     }
 
-    handleAddFontStyle(e) {
-        this.setState({textStyle: e.target.value});
-    }
-
     handleAddSize(e) {
         this.setState({textSize: e.target.value});
     }   
+
+    handleAddStyle(e) {
+        let fontName = this.fonts[parseInt(e.target.value)];
+        this.setState({textStyle: fontName});
+    }
+
+    handleAddTextTop(e) {
+
+    }
 
     sendValues(e) {
         this.props.sendValues(this.state);
@@ -51,51 +64,58 @@ class TextComponent extends Component {
 
     render() {
         var appFonts = [];
-        for (let i=0; i < this.fonts.length; i++){
-            appFonts.push(<option value={i} key={i}>{this.fonts[i]}</option>)
+        for(let i=0; i<this.fonts.length; i++) {
+            appFonts.push(<option value={this.fonts[i]} key={i}>{this.fonts[i]}</option>);
         }
+
+        var textColor = [];
+        for(let i=0; i<this.colors.length; i++) {
+            textColor.push(<option value={this.colors[i].rgb} key={i}>{this.colors[i].name}</option>);
+        }
+
         return(
             <div className="textContainer">
+                <div className="closeText">
+                    <button className="closeTextContainer" onClick={this.props.closeTextContainer}
+                    title="Remove text">
+                        <FaTrash />
+                    </button>
+                </div>
                 <div> 
                     <div className="textContainerRow">
-                        <label htmlFor="newText" className="imageText">Texto de la imágen:</label><br/>
+                        <label htmlFor="newText" className="imageText">Text to image:</label><br/>
                         <input className="newText" name="newText" id="newText"
                         onChange={this.props.addCanvasText}   
                         />
                     </div>
                     <div className="textContainerRow">
-                        <div className="">
-                            <label htmlFor="newColor" className="imageText">Color:</label><br/>
-                            <input className="" id="newColor" name="newColor" placeholder="#000000"
-                            onChange={this.props.addCanvasTextColor}/>
+                        <div className="textContainerColumn">
+                            <label htmlFor="newColor" className="imageText">Font color:</label><br/>
+                            <select onChange={this.props.addCanvasTextColor}>
+                                {textColor}
+                            </select>
                         </div>
-                        <div className="">
-                            <label htmlFor="textSize" className="imageText">Medida:</label><br/>
+                        <div className="textContainerColumn">
+                            <label htmlFor="textSize" className="imageText">Font size:</label><br/>
                             <input className="textSize" id="textSize" name="textSize" placeholder="16"
-                            onChange={this.props.addCanvasTextSize}/>px
+                            onChange={this.props.addCanvasTextSize}/> PX
                         </div>
                         <div className="">
-                            <label htmlFor="textStyle" className="imageText">Estilo:</label><br/>
-                            <select>
+                            <label htmlFor="textStyle" className="imageText">Font style:</label><br/>
+                            <select onChange={this.props.addCanvasTextStyle}>
                                 {appFonts}
                             </select>
                         </div>
                     </div>
-                    <div className="textContainerRow">
-                        <button className="appBtn">
-                            Subir <FaPlus/>
+                    <div className="textContainerRowUpDown">
+                        <label className="imageText">Text position: </label><br/>
+                        <button className="appBtn" onClick={this.props.addCanvasTextTop}>
+                            Up <FaPlus/>
                         </button>
-                        <button className="appBtn">
-                            Bajar <FaMinus/>
+                        <button className="appBtn" onClick={this.props.addCanvasTextBottom}>
+                            Down <FaMinus/>
                         </button>
                     </div>
-                    {/* 
-                    <button onClick={(e)=>this.sendValues(e)}>Add</button>
-                    */}
-                    <button 
-                        onClick={this.props.delText}>
-                        Remove
-                    </button>
                 </div>
             </div>
         );
