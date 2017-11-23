@@ -5,6 +5,8 @@ import Board from './Board';
 
 import '../index.css';
 
+//import logo from './react.svg';
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -17,14 +19,14 @@ class App extends Component {
     render() {
         return (
           <div className="component-app">
-
-    {/* <Header
-  leftComponent={{ icon: 'menu', color: '#fff' }}
-  centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
-  rightComponent={{ icon: 'home', color: '#fff' }}
-/> */}
-            <label className="appTittle">Crea tus imágenes para las redes sociales</label>
+            <div className="appHeader">
+                <label className="appTitle">Social Media Image Creator</label>
+            </div>
             <Board/>
+            <div className="reactPowered">  
+                <img src="/react.svg" className="App-logo" alt="logo" /> 
+                <span>Powered by <a href="https://reactjs.org/" target="_blank">React.js</a></span>
+            </div>
           </div>
         );
     }

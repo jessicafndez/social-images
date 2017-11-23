@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import '../index.css';
 import '../css/board.css';
 
-import Facebook from '../social/facebook';
-import Instagram from '../social/instagram';
-import Twitter from '../social/twitter';
+
 
 import SocialGeneral from '../social/socialGeneral.js'
 
@@ -47,8 +45,6 @@ class Board extends Component {
                 socialPosition: 0
             });
         }
-
-        console.log("Changin to: " + e.target.value);
         this.render();
     }
 
@@ -56,7 +52,7 @@ class Board extends Component {
         return(
             <div className="boardContainer">
                 <div className="componentBox">
-                    <label className="lblSocialPlatform">Selecciona la red social:</label>
+                    <label className="lblSocialPlatform">Select social network:</label>
                     <select name="socialPlatform" onChange={(e)=>this._changeSocialPlatform(e)}>
                         <option value="1">Facebook</option>
                         <option value="2">Instagram</option>

@@ -1,13 +1,29 @@
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
-  margin: 20px;
-  background-color: #EAEAEA;
+  background-color: #e6ecf0;
+  margin: 0;
 }
 
 ol, ul {
   padding-left: 30px;
 }
 
+/******** HEADER ********/
+.appHeader {
+  background-color: #303030;
+  width: 100%;
+}
+.appTitle {
+  font-size: 30px;
+  color: white;
+  font-family: 'Pacifico', cursive;
+  text-align: center;
+  width: 100%;
+  display: block;
+  padding: 5px 0 8px;
+}
+
+/**** MAIN CONTAINER   *******/
 .board-row:after {
   clear: both;
   content: "";
@@ -19,12 +35,18 @@ ol, ul {
 }
 
 /********* INDEX **************/
-.appTittle {
-  font-size: 30px;
-  color: #252A34;
-  font-family: 'Pacifico', cursive;
+.boardContainer {
+  padding: 10px;
 }
+.componentBox {
+  padding: 20px 10px;
+  margin-bottom: 20px;
+  margin: 0 auto;
+  max-width: 1100px;
+  background-color: white;
+  border: 1px solid #D8E0E5;
 
+}
 
 .square:focus {
   outline: none;
@@ -50,12 +72,6 @@ ol, ul {
   font-size: 25px;
 }
 
-.componentBox {
-  padding: 20px 10px;
-  margin-bottom: 10px;
-  border-bottom: 2px solid #08D9D6;
-}
-
 canvas {
   border: 1px solid #08D9D6;
   background-color: #08D9D6;
@@ -64,4 +80,15 @@ canvas {
 
 a {
   text-decoration: none;
+}
+
+.reactPowered {
+
+}
+.reactPowered img {
+  width: 25px;
+  float: left
+}
+.reactPowered span {
+  float: left;
 }
