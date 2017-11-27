@@ -314,7 +314,7 @@ class SocialGeneral extends Component {
               </div>
             </div>
             <div className="componentBox">
-              <div className="componentBox" onClick={(e)=>this.addText(e)}
+              <div className="" onClick={(e)=>this.addText(e)}
                 style={{ display: (btnVisible ? 'none' : 'block')}}>
                 <button className="appBtn">Add text container</button>
               </div>

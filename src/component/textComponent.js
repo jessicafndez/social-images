@@ -25,10 +25,13 @@ class TextComponent extends Component {
         ]
 
         this.colors = [
-            {name: 'Negro', rgb: '#000000'},
-            {name: 'Invermercado', rgb: '#218aa8'},
-            {name: 'Blanco', rgb: '#ffffff'},
-            {name: 'Gris', rgb: '#4c4c4c'}
+            {name: 'Black', rgb: '#000000'},
+            {name: 'Red', rgb: '#DC143C'},
+            {name: 'White', rgb: '#ffffff'},
+            {name: 'Grey', rgb: '#4c4c4c'},
+            {name: 'Yellow', rgb: '#FFD700'},
+            {name: 'Blue', rgb: '#0000FF'},
+            {name: 'Green', rgb: '#00FF00'}
         ]
     }
 

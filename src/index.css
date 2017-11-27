@@ -1,6 +1,8 @@
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
   background-color: #e6ecf0;
+
+  background-color: #E9ECEC;
   margin: 0;
 }
 
@@ -44,8 +46,7 @@ ol, ul {
   margin: 0 auto;
   max-width: 1100px;
   background-color: white;
-  border: 1px solid #D8E0E5;
-
+  border: 1px solid #E4E9E9;
 }
 
 .square:focus {
@@ -73,15 +74,17 @@ ol, ul {
 }
 
 canvas {
-  border: 1px solid #08D9D6;
+  border: 1px solid #E4E9E9;
   background-color: #08D9D6;
-  box-shadow: 7px 7px 3px #D0F6F6;
+  box-shadow: 5px 5px 2px #E4E9E9;
 }
 
 a {
   text-decoration: none;
 }
 
+
+/*** FOOTER ***/
 .reactPowered {
 
 }
@@ -91,4 +94,11 @@ a {
 }
 .reactPowered span {
   float: left;
+}
+
+.componentBoxFooter {
+  padding: 20px 10px;
+  margin-bottom: 20px;
+  margin: 0 auto;
+  max-width: 1100px;
 }
