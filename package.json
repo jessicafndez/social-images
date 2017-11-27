@@ -2,6 +2,7 @@
   "name": "texting-images",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://jessicafndez.github.com/social-images",
   "dependencies": {
     "@expo/vector-icons": "^6.2.0",
     "react": "^16.0.0",
