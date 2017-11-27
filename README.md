@@ -5,7 +5,7 @@
   - Instagram.
   - Twitter.
   
-  Choose social media image type. 
+  Choose social media image type. <br/>
   Drag your image in correct place.
   Add text, choose text color, style and size.
   Save your image and download it.
