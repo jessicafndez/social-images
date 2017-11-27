@@ -6,6 +6,6 @@
   - Twitter.
   
   Choose social media image type. <br/>
-  Drag your image in correct place.
-  Add text, choose text color, style and size.
-  Save your image and download it.
+  Drag your image in correct place. <br/>
+  Add text, choose text color, style and size. <br/>
+  Save your image and download it. <br/>
