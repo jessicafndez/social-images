@@ -1,0 +1,38 @@
+function show() {
+      $this->setFile('f_report_data','reportes_datos/reportes_datos_dashboard');
+      $this->setBlock('f_report_data', 'subcontent_saved_reports');
+      $this->showSavedReports('subcontent_saved_reports');
+      $this->parseContent('f_report_data');
+    }
+
+function showSavedReports($block="content") {
+  $this->setFile('f_report_directory', 'reportes_datos/reports_directory');
+  $this->setBlock('f_report_directory', 'row_reporte');
+  $path = BASEPATH. "upload_reports/";
+  $files = array_diff(scandir($path), array('.', '..', '.htaccess'));
+  foreach ($files as $f) {
+	$this->setVar("file_name" , $f);
+	$this->setVar("file_name_src",
+	'\ReportsCreatorView\downLoadReport?r_name=' . $f);
+	$this->parseRec('row_reporte');
+  }
+  $this->parse($block, 'f_report_directory');
+}
+
+function deleteExcelReport() {
+  if(isset($_GET['r_file'])) {
+	$filePath = BASEPATH . 'upload_reports/' . $_GET['r_file'];
+	if(file_exists($filePath)) {
+	  unlink($filePath);
+	  $this->returnFormSuccess("Archivo borrado correctamente");
+	}
+	else {
+	  $this->returnFormError("Error al eliminar el archivo");
+	}
+  }
+}
+
+SELECT post_title, post_subtitle, 
+IF(post_visible = 1, 'YES', 'No') AS Post_Visible 
+FROM `blog`
+
