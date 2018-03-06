@@ -52,7 +52,7 @@
     font-family: 'Pacifico', cursive;
     border-radius: 5px;
     cursor: pointer;
-    height: 30px;
+    height: 50px;
   }
   .fileContainer span {
     cursor: pointer !important;

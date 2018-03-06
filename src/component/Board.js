@@ -24,6 +24,9 @@ class Board extends Component {
     _changeSocialPlatform(e) {
         e.preventDefault();
 
+        console.log("Changin social platform");
+        console.log(e.target.value);
+
         if (e.target.value == 1) {
             this.setState({ 
                 socialName: 'Facebook', 
@@ -49,6 +52,7 @@ class Board extends Component {
     }
 
     render() {
+        console.log("repaint parent");
         return(
             <div className="boardContainer">
                 <div className="componentBox">
@@ -60,7 +64,8 @@ class Board extends Component {
                     </select>
                 </div>
                 <div className="">
-                    <SocialGeneral socialId={this.state.socialId} ref='socialGeneral' />
+                    <SocialGeneral socialId={this.state.socialId} ref='socialGeneral' 
+                   />
                 </div>
             </div>
         );

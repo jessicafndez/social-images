@@ -31,7 +31,8 @@ class SocialGeneral extends Component {
             haveTextContent: false,
             socialName: 'Facebook',
             socialId: 1,
-            childSocialPosition: 0
+            childSocialPosition: 0,
+            stickerContentVisible: false
           }
       
         this.textContainer = [];
@@ -41,14 +42,12 @@ class SocialGeneral extends Component {
         this.instagram = new Instagram();
         this.twitter = new Twitter();
 
+        console.log("Recreate child");
+
         this.socialObj= this.fb;
     }
 
     changeSocial() {
-      console.log("Changing social");
-      console.log(this.props.socialGeneral);
-      console.log("Social: " + this.state.socialName);
-
       this.render();
     }
 
@@ -65,6 +64,9 @@ class SocialGeneral extends Component {
           });
         }
         reader.readAsDataURL(file);
+
+        //then show stickers options
+        this.setState({btnStickertVisible: true});
     }
 
     handleMouseDown(e) {
@@ -93,6 +95,14 @@ class SocialGeneral extends Component {
           }
           this.setState({coordX: e.pageX, coordY: e.pageY});
         }
+    }
+
+    handleMouseLeave(e) {
+      console.log("mouse leaving");
+      if(this.state.isDragging === true) {
+         this.state.isDragging = false;
+        this.setState({coordX: e.pageX, coordY: e.pageY});
+      }
     }
 
     changeSocialOptions(e) {
@@ -154,6 +164,15 @@ class SocialGeneral extends Component {
       });
     }
 
+    restartCanvasSocialSize() {
+      console.log("Restarting sizes");
+      this.setState({
+        boardWidth: this.socialObj.socialSizes[1][0].widthWeb,
+        boardHeight: this.socialObj.socialSizes[1][0].heightWeb,
+        childSocialPosition: 1
+      });
+    }
+
     /* TEXT COMPONENT FUNCTIONS */
     addText(e) {
       if(this.state.numTextContainers == 0) {
@@ -184,8 +203,6 @@ class SocialGeneral extends Component {
     }
 
     closeTextContainer() {
-      console.log("Closing text container...");
-      
       this.textContainer = [];
 
       let childText = this.state.childText;
@@ -202,9 +219,17 @@ class SocialGeneral extends Component {
       });
       this.render();
     }
-  
+
+    addSticker() {
+      console.log("Add stickers");
+      if(!this.state.childSocialPosition) {
+        alert("image loader is needed");
+      }
+    }
 
     render() {
+      console.log("Render children: ");
+      console.log(this.props.socialId);
         let socialId = parseInt(this.props.socialId);
         let socialName = "";
         if(socialId === 1) {
@@ -226,6 +251,9 @@ class SocialGeneral extends Component {
           //restar canvas size
           this.state.boardWidth = 180;
           this.state.boardHeight = 180;
+
+          //restart selector too
+          this.state.childSocialPosition = 0;
         }
 
         var socialSizesArray = [];
@@ -285,20 +313,22 @@ class SocialGeneral extends Component {
         }
 
         let btnVisible = this.state.numTextContainers;
+        let btnStickertVisible = this.state.stickerContentVisible;
 
         return(
           <div className="socialContainer">
             <div className="componentBox">
                 <label className="imageType">Add image to {socialName}:</label>
-                <select name="socialSize" onChange={(e)=>this.changeCanvasSocialSize(e)}>
+                <select name="socialSize" onChange={(e)=>this.changeCanvasSocialSize(e)}
+                value={this.state.childSocialPosition}>
                   {socialSizesArray}
                 </select>
             </div>
             <div className="componentBox">
               <div className="fileContainer">
                 <span>Add image</span>
-                <input className="fileInput" type="file" 
-                  onChange={(e)=>this._handleImageChange(e)}></input>
+                <input className="fileInput pointer" type="file" 
+                  onChange={(e)=>this._handleImageChange(e)}/>
               </div>
             </div>
             <div className="canvasContent componentBox">
@@ -310,11 +340,18 @@ class SocialGeneral extends Component {
                     onMouseUp = {(e)=>this.handleMouseUp(e)}
                     onMouseDown = {(e)=>this.handleMouseDown(e)}
                     onMouseMove = {(e)=>this.handleMouseMove(e)}
+                    onMouseLeave = {(e)=>this.handleMouseLeave(e)}
                 />
               </div>
             </div>
+            <div className="componentBox" 
+            style={{display: (this.state.btnStickertVisible ? 'block' : 'none')}}>
+              <div className="pointer" onClick={(e)=>this.addSticker(e)}>
+                <button className="appBtn">Add Sticker</button>
+              </div>
+            </div>
             <div className="componentBox">
-              <div className="" onClick={(e)=>this.addText(e)}
+              <div className="pointer" onClick={(e)=>this.addText(e)}
                 style={{ display: (btnVisible ? 'none' : 'block')}}>
                 <button className="appBtn">Add text container</button>
               </div>
@@ -323,7 +360,7 @@ class SocialGeneral extends Component {
               </div>
             </div>
             <div className="componentBox">
-              <div className="saveBtnContainer">
+              <div className="saveBtnContainer pointer">
                 <a href={this.state.downloadImage} onClick={(e)=>this.saveCanvas(e)} 
                   className="appBtn saveBtn"
                   download>Save image

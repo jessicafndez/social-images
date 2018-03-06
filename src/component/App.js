@@ -23,10 +23,10 @@ class App extends Component {
                 <label className="appTitle">Social Media Image Creator</label>
             </div>
             <Board/>
-            <div className="componentBoxFooter reactPowered">  
+            {/* <div className="componentBoxFooter reactPowered">  
                 <img src="/react.svg" className="App-logo" alt="logo" /> 
                 <span>Powered by <a href="https://reactjs.org/" target="_blank">React.js</a></span>
-            </div>
+            </div> */}
           </div>
         );
     }
