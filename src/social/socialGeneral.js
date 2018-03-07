@@ -32,11 +32,11 @@ class SocialGeneral extends Component {
             socialName: 'Facebook',
             socialId: 1,
             childSocialPosition: 0,
-            stickerContentVisible: false
+            stickerContentVisible: false,
           }
-      
+
         this.textContainer = [];
-        this.imageDownloadUrl = '';   
+        this.imageDownloadUrl = '';
 
         this.fb = new Facebook();
         this.instagram = new Instagram();
@@ -53,10 +53,10 @@ class SocialGeneral extends Component {
 
     _handleImageChange(e) {
         e.preventDefault();
-    
+
         let reader = new FileReader();
         let file = e.target.files[0];
-    
+
         reader.onloadend = () => {
           this.setState({
             file: file,
@@ -69,21 +69,34 @@ class SocialGeneral extends Component {
         this.setState({btnStickertVisible: true});
     }
 
+    _handleStickerChanged(e) {
+      e.preventDefault();
+      let reader = new FileReader();
+      let file = e.target.files[0];
+      reader.onloadend = () => {
+        this.setState({
+          fileSticker: file,
+          imagePreviewStickerUrl: reader.result
+        });
+      }
+      reader.readAsDataURL(file);
+    }
+
     handleMouseDown(e) {
         this.setState({ isDragging: true });
         this.setState( {coordX: 0, coordY: 0 });
       }
-    
+
     handleMouseUp(e) {
         this.setState({ isDragging: false });
         this.setState( {coordX: 0, coordY: 0 });
-    } 
+    }
 
     handleMouseMove(e) {
         if(this.state.isDragging === true) {
           let moveX = this.state.moveAmountX;
           let moveY = this.state.moveAmountY;
-          
+
           if(this.state.isLoaded === false) {
             this.setState({isLoaded: true});
           }
@@ -108,12 +121,12 @@ class SocialGeneral extends Component {
     changeSocialOptions(e) {
         e.preventDefault();
         let option = parseInt(e.target.value, 10);
-    
+
         if(option === 1) {
           let newWidth = this.socialSize.socialProfile[0].widthDefault;
           let newHeight = this.socialSize.socialProfile[0].heightDefault;
-    
-          this.setState({ 
+
+          this.setState({
             boardWidth: newWidth,
             boardHeight: newHeight
           });
@@ -122,8 +135,8 @@ class SocialGeneral extends Component {
         else if(option === 2) {
           let newWidth = this.socialSize.socialSquare[0].widthWeb;
           let newHeight = this.socialSize.socialSquare[0].heightWeb;
-    
-          this.setState({ 
+
+          this.setState({
             boardWidth: newWidth,
             boardHeight: newHeight
           });
@@ -131,21 +144,21 @@ class SocialGeneral extends Component {
         else if(option === 3) {
           let newWidth = this.socialSize.socialCover[0].widthWeb;
           let newHeight = this.socialSize.socialCover[0].heightWeb;
-    
-          this.setState({ 
+
+          this.setState({
             boardWidth: newWidth,
             boardHeight: newHeight
           });
         }
-    } 
+    }
 
     saveCanvas(e) {
         e.preventDefault();
         let canvas = this.refs.canvas;
-    
+
         var dataURL = canvas.toDataURL('image/png');
         this.href=dataURL;
-      
+
         const w = window.open('about:blank', 'image from canvas');
         w.document.write("<img src='"+dataURL+"' alt='from canvas'/>");
         this.setState({downloadImage: dataURL});
@@ -157,7 +170,7 @@ class SocialGeneral extends Component {
       console.log("Change to size: " + option);
 
       console.log(this.socialObj.socialSizes[option]);
-      this.setState({ 
+      this.setState({
         boardWidth: this.socialObj.socialSizes[option][0].widthWeb,
         boardHeight: this.socialObj.socialSizes[option][0].heightWeb,
         childSocialPosition: option
@@ -178,8 +191,8 @@ class SocialGeneral extends Component {
       if(this.state.numTextContainers == 0) {
         let numText = this.state.numTextContainers + 1;
         this.setState({numTextContainers: numText});
-    
-        this.textContainer.push(<TextComponent key={this.state.numTextContainers+1} number={this.state.numTextContainers+1} 
+
+        this.textContainer.push(<TextComponent key={this.state.numTextContainers+1} number={this.state.numTextContainers+1}
           addCanvasText={this.addCanvasText.bind(this)}
           addCanvasTextColor={this.addCanvasTextColor.bind(this)}
           addCanvasTextSize={this.addCanvasTextSize.bind(this)}
@@ -189,15 +202,15 @@ class SocialGeneral extends Component {
         this.setState( {textBoxes: this.textContainer});
       }
     }
-    
+
     addCanvasText(e) {
       this.setState({childText: e.target.value});
     }
-  
+
     addCanvasTextColor(e) {
       this.setState({childTextColor: e.target.value});
     }
-  
+
     addCanvasTextSize(e) {
       this.setState({childTextSize: e.target.value});
     }
@@ -209,7 +222,7 @@ class SocialGeneral extends Component {
       let childTextColor = this.state.childTextColor;
       let childTextSize = this.state.childTextSize;
 
-      this.setState({ 
+      this.setState({
         numTextContainers:0,
         childText: '',
         childTextColor: '#000000',
@@ -222,9 +235,16 @@ class SocialGeneral extends Component {
 
     addSticker() {
       console.log("Add stickers");
-      if(!this.state.childSocialPosition) {
+      if(this.state.isLoaded) {
         alert("image loader is needed");
       }
+      else {
+        console.log("stickers is loader");
+      }
+    }
+
+    fixBackground(e) {
+
     }
 
     render() {
@@ -234,7 +254,7 @@ class SocialGeneral extends Component {
         let socialName = "";
         if(socialId === 1) {
           this.socialObj = this.fb;
-          socialName = "Facebook";     
+          socialName = "Facebook";
         }
         else if(socialId === 2) {
           this.socialObj = this.instagram;
@@ -247,7 +267,7 @@ class SocialGeneral extends Component {
 
         if (this.props.socialId !== this.state.socialId) {
           this.state.socialId = this.props.socialId;
-          
+
           //restar canvas size
           this.state.boardWidth = 180;
           this.state.boardHeight = 180;
@@ -266,31 +286,31 @@ class SocialGeneral extends Component {
 
         let {imagePreviewUrl} = this.state;
         let img = new Image();
-    
+
         if (imagePreviewUrl) {
           let xPos = this.state.moveAmountX;
           let yPos = this.state.moveAmountY;
-    
+
           const ctx = this.refs.canvas.getContext('2d');
           const canvas = this.refs.canvas;
-      
+
           let childText = this.state.childText;
           let childTextColor = this.state.childTextColor;
           let childTextSize = this.state.childTextSize;
 
           let moveX = this.state.moveAmountX;
           let moveY = this.state.moveAmountY;
-    
+
           if(!this.state.isLoaded) {
             img.onload = function() {
               ctx.clearRect(0, 0, canvas.width, canvas.height);
               ctx.drawImage(img, (canvas.width/2 - img.width/2) + moveX, (canvas.height/2 - img.height/2) + moveY);
-    
+
               ctx.font = childTextSize +"px Georgia";
               ctx.fillStyle = childTextColor;
               ctx.fillText(childText, 10,50);
               ctx.fill();
-    
+
               ctx.beginPath();
               ctx.stroke();
             };
@@ -299,12 +319,12 @@ class SocialGeneral extends Component {
             img.onload = function() {
               ctx.clearRect(0, 0, canvas.width, canvas.height);
               ctx.drawImage(img, -canvas.width/2 + moveX, -canvas.height/2 + moveY);
-    
+
               ctx.font = childTextSize +"px Georgia";
               ctx.fillStyle = childTextColor;
               ctx.fillText(childText, 10,50);
               ctx.fill();
-    
+
               ctx.beginPath();
               ctx.stroke();
             };
@@ -314,6 +334,16 @@ class SocialGeneral extends Component {
 
         let btnVisible = this.state.numTextContainers;
         let btnStickertVisible = this.state.stickerContentVisible;
+
+        let {imagePreviewStickerUrl} = this.state;
+        let imgages = new Image();
+
+        if (imagePreviewStickerUrl) {
+          console.log("we have sticker");
+        }
+        else {
+          console.log("No sticker yet");
+        }
 
         return(
           <div className="socialContainer">
@@ -327,41 +357,49 @@ class SocialGeneral extends Component {
             <div className="componentBox">
               <div className="fileContainer">
                 <span>Add image</span>
-                <input className="fileInput pointer" type="file" 
+                <input className="fileInput pointer" type="file"
                   onChange={(e)=>this._handleImageChange(e)}/>
               </div>
             </div>
             <div className="canvasContent componentBox">
               <div className="canvasContainer">
                 <canvas ref="canvas" className="canvasCanvas" id="canvasCanvas"
-                  width={this.state.boardWidth} 
+                  width={this.state.boardWidth}
                   height={this.state.boardHeight}
-                    resize="true" 
+                    resize="true"
                     onMouseUp = {(e)=>this.handleMouseUp(e)}
                     onMouseDown = {(e)=>this.handleMouseDown(e)}
                     onMouseMove = {(e)=>this.handleMouseMove(e)}
                     onMouseLeave = {(e)=>this.handleMouseLeave(e)}
                 />
               </div>
-            </div>
-            <div className="componentBox" 
-            style={{display: (this.state.btnStickertVisible ? 'block' : 'none')}}>
-              <div className="pointer" onClick={(e)=>this.addSticker(e)}>
-                <button className="appBtn">Add Sticker</button>
+              <div className="">
+                <button className="appBtn"
+                onClick={(e)=>this.fixBackground(e)}>Fix Image</button>
               </div>
             </div>
-            <div className="componentBox">
-              <div className="pointer" onClick={(e)=>this.addText(e)}
-                style={{ display: (btnVisible ? 'none' : 'block')}}>
-                <button className="appBtn">Add text container</button>
+            <div className="extraOption">
+              <div className="componentBox"
+              style={{display: (this.state.btnStickertVisible ? 'block' : 'none')}}>
+                <div className="fileContainer">
+                  <span>Add sticker</span>
+                    <input className="fileInput pointer" type="file"
+                      onChange={(e)=>this._handleStickerChanged(e)}/>
+                </div>
               </div>
-              <div id="children-text-pane">
-                {this.textContainer}
+              <div className="componentBox">
+                <div className="pointer" onClick={(e)=>this.addText(e)}
+                  style={{ display: (btnVisible ? 'none' : 'block')}}>
+                  <button className="appBtn">Add text container</button>
+                </div>
+                <div id="children-text-pane">
+                  {this.textContainer}
+                </div>
               </div>
             </div>
             <div className="componentBox">
               <div className="saveBtnContainer pointer">
-                <a href={this.state.downloadImage} onClick={(e)=>this.saveCanvas(e)} 
+                <a href={this.state.downloadImage} onClick={(e)=>this.saveCanvas(e)}
                   className="appBtn saveBtn"
                   download>Save image
                 </a>
