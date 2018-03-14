@@ -10,4 +10,4 @@
   Add text, choose text color, style and size. <br/>
   Save your image and download it. <br/>
 
-  ** Not clean version, just on work version, sorry! **
+  **Not clean version, just on work version, sorry!**
