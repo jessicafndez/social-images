@@ -34,7 +34,9 @@ class SocialGeneral extends Component {
             childSocialPosition: 0,
             stickerContentVisible: false,
             isImageFixed: false,
-            fixText: "Fix Image"
+            fixText: "Fix Image",
+            stickerPX: "",
+            stickerPY: ""
           }
 
         this.textContainer = [];
