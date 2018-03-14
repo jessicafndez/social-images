@@ -18,7 +18,7 @@ class SocialGeneral extends Component {
             coordX: 0,
             coordY: 0,
             moveAmountX: 0,
-            moveAmountY: 0,
+            moveAmountY: 0, 
             isLoaded: false,
             numTextContainers: 0,
             textBoxes: [],
@@ -33,6 +33,8 @@ class SocialGeneral extends Component {
             socialId: 1,
             childSocialPosition: 0,
             stickerContentVisible: false,
+            isImageFixed: false,
+            fixText: "Fix Image"
           }
 
         this.textContainer = [];
@@ -42,13 +44,20 @@ class SocialGeneral extends Component {
         this.instagram = new Instagram();
         this.twitter = new Twitter();
 
-        console.log("Recreate child");
+        this.fixImageText = "Fix Image",
+        this.notFixImageText = "Move Image",
 
         this.socialObj= this.fb;
+
+        console.log("F: " + this.fixText);
     }
 
     changeSocial() {
       this.render();
+    }
+
+    fixImage() {
+      this.setState({isImageFixed: true});
     }
 
     _handleImageChange(e) {
@@ -66,7 +75,7 @@ class SocialGeneral extends Component {
         reader.readAsDataURL(file);
 
         //then show stickers options
-        this.setState({btnStickertVisible: true});
+        this.setState({extraOptionsVisible: false});
     }
 
     _handleStickerChanged(e) {
@@ -93,7 +102,7 @@ class SocialGeneral extends Component {
     }
 
     handleMouseMove(e) {
-        if(this.state.isDragging === true) {
+        if((this.state.isDragging === true) && (this.state.isImageFixed === false)) {
           let moveX = this.state.moveAmountX;
           let moveY = this.state.moveAmountY;
 
@@ -111,7 +120,6 @@ class SocialGeneral extends Component {
     }
 
     handleMouseLeave(e) {
-      console.log("mouse leaving");
       if(this.state.isDragging === true) {
          this.state.isDragging = false;
         this.setState({coordX: e.pageX, coordY: e.pageY});
@@ -167,7 +175,6 @@ class SocialGeneral extends Component {
     changeCanvasSocialSize(e) {
       e.preventDefault();
       let option = parseInt(e.target.value, 10);
-      console.log("Change to size: " + option);
 
       console.log(this.socialObj.socialSizes[option]);
       this.setState({
@@ -178,7 +185,6 @@ class SocialGeneral extends Component {
     }
 
     restartCanvasSocialSize() {
-      console.log("Restarting sizes");
       this.setState({
         boardWidth: this.socialObj.socialSizes[1][0].widthWeb,
         boardHeight: this.socialObj.socialSizes[1][0].heightWeb,
@@ -234,22 +240,33 @@ class SocialGeneral extends Component {
     }
 
     addSticker() {
-      console.log("Add stickers");
       if(this.state.isLoaded) {
         alert("image loader is needed");
-      }
-      else {
-        console.log("stickers is loader");
       }
     }
 
     fixBackground(e) {
+      if(this.state.isImageFixed) {
+        this.setState({ 
+          isImageFixed: false, 
+          fixText: this.fixImageText, 
+          extraOptionsVisible: false 
+        });
+        console.log("Now is fixed");
+      }
+      else {
+        this.setState({ 
+          isImageFixed: true, 
+          fixText: this.notFixImageText,
+          extraOptionsVisible: true
+        });
+        console.log("Now not fixed");
+      }
 
+      console.log("lf: " + this.state.fixText);
     }
 
     render() {
-      console.log("Render children: ");
-      console.log(this.props.socialId);
         let socialId = parseInt(this.props.socialId);
         let socialName = "";
         if(socialId === 1) {
@@ -333,17 +350,21 @@ class SocialGeneral extends Component {
         }
 
         let btnVisible = this.state.numTextContainers;
-        let btnStickertVisible = this.state.stickerContentVisible;
+        let extraOptionsVisible = this.state.stickerContentVisible;
 
         let {imagePreviewStickerUrl} = this.state;
         let imgages = new Image();
 
         if (imagePreviewStickerUrl) {
-          console.log("we have sticker");
+         // console.log("we have sticker");
         }
         else {
-          console.log("No sticker yet");
+          //console.log("No sticker yet");
         }
+
+        let fixText = this.state.fixText;
+
+        console.log("F. " + fixText);
 
         return(
           <div className="socialContainer">
@@ -375,12 +396,12 @@ class SocialGeneral extends Component {
               </div>
               <div className="">
                 <button className="appBtn"
-                onClick={(e)=>this.fixBackground(e)}>Fix Image</button>
+                onClick={(e)=>this.fixBackground(e)}>{fixText}</button>
               </div>
             </div>
-            <div className="extraOption">
-              <div className="componentBox"
-              style={{display: (this.state.btnStickertVisible ? 'block' : 'none')}}>
+            <div className="extraOption" 
+            style={{display: (this.state.extraOptionsVisible ? 'block' : 'none')}}>  
+              <div className="componentBox">
                 <div className="fileContainer">
                   <span>Add sticker</span>
                     <input className="fileInput pointer" type="file"
