@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Board from './Board';
+import MainComponent from './main/MainComponent';
 
 //import { Header } from 'react-native-elements';
 
@@ -19,14 +19,13 @@ class App extends Component {
     render() {
         return (
           <div className="component-app">
-            <div className="appHeader">
-                <label className="appTitle">Social Media Image Creator</label>
+            <div className="appHeader ">
+                <div className="appHeaderContent container">
+                    <img src="logo.png" />
+                    <label className="appTitle">Crea tus imágenes para las redes sociales</label>
+                </div>    
             </div>
-            <Board/>
-            {/* <div className="componentBoxFooter reactPowered">  
-                <img src="/react.svg" className="App-logo" alt="logo" /> 
-                <span>Powered by <a href="https://reactjs.org/" target="_blank">React.js</a></span>
-            </div> */}
+            <MainComponent/>
           </div>
         );
     }

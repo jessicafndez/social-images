@@ -370,64 +370,7 @@ class SocialGeneral extends Component {
 
         return(
           <div className="socialContainer">
-            <div className="componentBox">
-                <label className="imageType">Add image to {socialName}:</label>
-                <select name="socialSize" onChange={(e)=>this.changeCanvasSocialSize(e)}
-                value={this.state.childSocialPosition}>
-                  {socialSizesArray}
-                </select>
-            </div>
-            <div className="componentBox">
-              <div className="fileContainer">
-                <span>Add image</span>
-                <input className="fileInput pointer" type="file"
-                  onChange={(e)=>this._handleImageChange(e)}/>
-              </div>
-            </div>
-            <div className="canvasContent componentBox">
-              <div className="canvasContainer">
-                <canvas ref="canvas" className="canvasCanvas" id="canvasCanvas"
-                  width={this.state.boardWidth}
-                  height={this.state.boardHeight}
-                    resize="true"
-                    onMouseUp = {(e)=>this.handleMouseUp(e)}
-                    onMouseDown = {(e)=>this.handleMouseDown(e)}
-                    onMouseMove = {(e)=>this.handleMouseMove(e)}
-                    onMouseLeave = {(e)=>this.handleMouseLeave(e)}
-                />
-              </div>
-              <div className="">
-                <button className="appBtn"
-                onClick={(e)=>this.fixBackground(e)}>{fixText}</button>
-              </div>
-            </div>
-            <div className="extraOption" 
-            style={{display: (this.state.extraOptionsVisible ? 'block' : 'none')}}>  
-              <div className="componentBox">
-                <div className="fileContainer">
-                  <span>Add sticker</span>
-                    <input className="fileInput pointer" type="file"
-                      onChange={(e)=>this._handleStickerChanged(e)}/>
-                </div>
-              </div>
-              <div className="componentBox">
-                <div className="pointer" onClick={(e)=>this.addText(e)}
-                  style={{ display: (btnVisible ? 'none' : 'block')}}>
-                  <button className="appBtn">Add text container</button>
-                </div>
-                <div id="children-text-pane">
-                  {this.textContainer}
-                </div>
-              </div>
-            </div>
-            <div className="componentBox">
-              <div className="saveBtnContainer pointer">
-                <a href={this.state.downloadImage} onClick={(e)=>this.saveCanvas(e)}
-                  className="appBtn saveBtn"
-                  download>Save image
-                </a>
-              </div>
-            </div>
+            
           </div>
         );
       }

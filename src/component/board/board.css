@@ -1,0 +1,28 @@
+.componentBox  {
+    display: block;
+}
+.fullRow {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.containerBox {
+    display: block;
+}
+
+.boardContainer {
+    background-color: white;
+}
+
+.board {
+    background-color: white;
+    padding: 20px;
+}
+
+.canvasCanvas {
+    border: 1px solid #E4E9E9;
+    background-color: #E0E0E0;
+    box-shadow: 5px 5px 2px #E4E9E9;
+}
+  

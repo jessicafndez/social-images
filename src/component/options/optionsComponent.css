@@ -1,0 +1,7 @@
+.componentBox {
+    display:flex;
+}
+.componentSemiBox {
+    flex-basis: 100%;
+    text-align: left;
+}

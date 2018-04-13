@@ -12,17 +12,19 @@ ol, ul {
 
 /******** HEADER ********/
 .appHeader {
-  background-color: #303030;
-  width: 100%;
+  background-color: #efefef;
+  display: flex;
+}
+.appHeaderContent img {
+  padding-bottom: 10px;
 }
 .appTitle {
-  font-size: 30px;
-  color: white;
+  font-size: 26px;
+  color: #404040;
   font-family: 'Pacifico', cursive;
   text-align: center;
-  width: 100%;
-  display: block;
   padding: 5px 0 8px;
+  padding-left: 50px;
 }
 
 /**** MAIN CONTAINER   *******/
@@ -37,16 +39,11 @@ ol, ul {
 }
 
 /********* INDEX **************/
-.boardContainer {
-  padding: 10px;
-}
 .componentBox {
   padding: 20px 10px;
   margin-bottom: 20px;
   margin: 0 auto;
-  max-width: 1100px;
   background-color: white;
-  border: 1px solid #E4E9E9;
 }
 
 .square:focus {
@@ -74,10 +71,12 @@ ol, ul {
 }
 
 canvas {
-  border: 1px solid #E4E9E9;
+  /* border: 1px solid #E4E9E9;
   background-color: #E0E0E0;
-  box-shadow: 5px 5px 2px #E4E9E9;
+  box-shadow: 5px 5px 2px #E4E9E9; */
 }
+
+
 
 a {
   text-decoration: none;
